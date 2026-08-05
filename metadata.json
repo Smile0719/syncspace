@@ -1,0 +1,6 @@
+{
+  "name": "SyncSpace",
+  "description": "Real-Time Collaborative Whiteboard & Code Editor with WebSockets state sync, live cursors, code execution simulation, and AI architecture assistance.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
