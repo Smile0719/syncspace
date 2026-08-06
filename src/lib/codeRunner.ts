@@ -1,73 +1,208 @@
 import { ExecutionResult } from "../types";
 
-export async function runCodeInSandbox(code: string, language: string): Promise<ExecutionResult> {
+function formatArgs(args: unknown[]): string {
+  return args
+    .map((arg) =>
+      typeof arg === "object"
+        ? JSON.stringify(arg, null, 2)
+        : String(arg)
+    )
+    .join(" ");
+}
+
+export async function runCodeInSandbox(
+  code: string,
+  language: string
+): Promise<ExecutionResult> {
+
   const startTime = performance.now();
   const logs: string[] = [];
 
   const customConsole = {
-    log: (...args: any[]) => {
-      logs.push(args.map(arg => typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)).join(' '));
+
+    log: (...args: unknown[]) => {
+      logs.push(formatArgs(args));
     },
-    error: (...args: any[]) => {
-      logs.push(`[ERROR] ${args.map(arg => typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)).join(' ')}`);
+
+    error: (...args: unknown[]) => {
+      logs.push("[ERROR] " + formatArgs(args));
     },
-    warn: (...args: any[]) => {
-      logs.push(`[WARN] ${args.map(arg => typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)).join(' ')}`);
+
+    warn: (...args: unknown[]) => {
+      logs.push("[WARN] " + formatArgs(args));
     },
-    info: (...args: any[]) => {
-      logs.push(`[INFO] ${args.map(arg => typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)).join(' ')}`);
-    }
+
+    info: (...args: unknown[]) => {
+      logs.push("[INFO] " + formatArgs(args));
+    },
+
   };
 
+
   try {
-    if (language === 'javascript' || language === 'typescript') {
-      // Clean up TypeScript type definitions roughly for standard JS execution
-      let executableCode = code;
-      if (language === 'typescript') {
-        // Simple type stripping regexes for JS execution
-        executableCode = executableCode
-          .replace(/:\s*[A-Za-z0-9_<>\[\]|&\s]+/g, '') // strip return/var types
-          .replace(/interface\s+\w+\s*\{[^}]*\}/g, '') // strip interfaces
-          .replace(/type\s+\w+\s*=\s*[^;]+;/g, ''); // strip type aliases
+
+    switch(language.toLowerCase()) {
+
+
+      case "javascript":
+      case "js": {
+
+        const executeCode = new Function(
+          "console",
+          `
+          return (async () => {
+            "use strict";
+            ${code}
+          })();
+          `
+        );
+
+
+        await executeCode(customConsole);
+
+
+        return {
+
+          output:
+            logs.length > 0
+              ? logs.join("\n")
+              : "Program executed successfully.",
+
+          executionTimeMs:
+            Math.round(performance.now() - startTime),
+
+        };
       }
 
-      // Execute code inside isolated Async Function scope
-      const asyncFn = new Function('console', `
-        return (async () => {
-          ${executableCode}
-        })();
-      `);
 
-      await asyncFn(customConsole);
 
-      const endTime = performance.now();
-      return {
-        output: logs.join('\n') || 'Program executed successfully with no output.',
-        executionTimeMs: Math.round(endTime - startTime)
-      };
-    } else if (language === 'html') {
-      const endTime = performance.now();
-      return {
-        output: `HTML Rendering Preview Available. Output snippet length: ${code.length} chars.`,
-        executionTimeMs: Math.round(endTime - startTime)
-      };
-    } else {
-      // Simulation engine for Python, Rust, C++, Java
-      const endTime = performance.now();
-      logs.push(`[${language.toUpperCase()} Runner Simulation Mode]`);
-      logs.push(`Compiling and executing source file (${code.split('\n').length} lines)...`);
-      logs.push(`Status: Execution completed cleanly.`);
-      return {
-        output: logs.join('\n'),
-        executionTimeMs: Math.round(endTime - startTime) + 42
-      };
+      case "typescript": {
+
+        return {
+
+          output:
+            "TypeScript requires transpilation before execution.",
+
+          executionTimeMs:
+            Math.round(performance.now() - startTime),
+
+        };
+
+      }
+
+
+
+      case "html": {
+
+        return {
+
+          output:
+            "HTML preview should be rendered using a sandboxed iframe.",
+
+          executionTimeMs:
+            Math.round(performance.now() - startTime),
+
+        };
+
+      }
+
+
+
+      case "css": {
+
+        return {
+
+          output:
+            "CSS must be combined with HTML for preview.",
+
+          executionTimeMs:
+            Math.round(performance.now() - startTime),
+
+        };
+
+      }
+
+
+
+      case "json": {
+
+        JSON.parse(code);
+
+
+        return {
+
+          output:
+            "Valid JSON.",
+
+          executionTimeMs:
+            Math.round(performance.now() - startTime),
+
+        };
+
+      }
+
+
+
+      case "python":
+      case "java":
+      case "cpp":
+      case "c":
+      case "rust": {
+
+        return {
+
+          output:
+`${language.toUpperCase()} execution requires backend sandbox.
+
+Connect SyncSpace with:
+- Docker Sandbox
+- Judge0 API
+- Piston API`,
+
+          executionTimeMs:
+            Math.round(performance.now() - startTime),
+
+        };
+
+      }
+
+
+
+      default: {
+
+        return {
+
+          output: "",
+
+          error:
+            `Unsupported language: ${language}`,
+
+          executionTimeMs:
+            Math.round(performance.now() - startTime),
+
+        };
+
+      }
+
     }
-  } catch (err: any) {
-    const endTime = performance.now();
+
+
+  } catch(error) {
+
     return {
-      output: logs.join('\n'),
-      error: err.message || 'Runtime execution exception occurred.',
-      executionTimeMs: Math.round(endTime - startTime)
+
+      output:
+        logs.join("\n"),
+
+      error:
+        error instanceof Error
+          ? error.message
+          : "Unknown runtime error",
+
+      executionTimeMs:
+        Math.round(performance.now() - startTime),
+
     };
+
   }
 }
