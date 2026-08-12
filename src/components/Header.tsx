@@ -71,11 +71,11 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="h-14 bg-slate-900 border-b border-slate-800 text-slate-100 px-4 flex items-center justify-between shadow-md select-none z-30">
+    <header className="h-14 bg-white border-b border-gray-200 text-slate-900 px-4 flex items-center justify-between shadow-sm select-none z-30">
       {/* Left: Brand & Room Identity */}
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-linear-to-tr from-indigo-600 to-violet-500 flex items-center justify-center font-bold text-white shadow-inner">
+          <div className="w-8 h-8 rounded-lg bg-linear-to-tr from-teal-400 to-violet-500 flex items-center justify-center font-bold text-white shadow-inner">
             S
           </div>
           <span className="font-semibold text-lg tracking-tight bg-linear-to-r from-indigo-300 via-violet-200 to-white bg-clip-text text-transparent">
@@ -86,13 +86,13 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="h-4 w-px bg-slate-800 mx-1" />
 
         {/* Room badge */}
-        <div className="flex items-center gap-2 bg-slate-800/80 hover:bg-slate-800 border border-slate-700/60 rounded-md px-2.5 py-1 text-xs font-mono transition-colors">
+        <div className="flex items-center gap-2 bg-gray-100 hover:bg-gray-100 border border-gray-200 rounded-md px-2.5 py-1 text-xs font-mono transition-colors">
           <span className="text-slate-400">Room:</span>
           <span className="text-indigo-300 font-medium">{roomId}</span>
           <button
             onClick={handleCopyLink}
             title="Copy Share Link"
-            className="text-slate-400 hover:text-white transition-colors ml-1 p-0.5 rounded hover:bg-slate-700"
+            className="text-gray-600 hover:text-white transition-colors ml-1 p-0.5 rounded hover:bg-gray-200"
           >
             {copied ? (
               <Check className="w-3.5 h-3.5 text-emerald-400" />
@@ -103,7 +103,7 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Connection Status Indicator */}
-        <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-slate-800/50 text-[11px]">
+        <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-gray-100 text-[11px]">
           <span
             className={`w-2 h-2 rounded-full ${isConnected ? "bg-emerald-400 animate-pulse" : "bg-amber-400"}`}
           />
@@ -116,13 +116,13 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Middle: Layout Modes & Interview Timer */}
       <div className="flex items-center gap-4">
         {/* View Mode Switcher */}
-        <div className="bg-slate-950 p-1 rounded-lg border border-slate-800 flex items-center gap-1">
+        <div className="bg-gray-100 p-1 rounded-lg border border-gray-200 flex items-center gap-1">
           <button
             onClick={() => onChangeLayout("whiteboard")}
             className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all ${
               layoutMode === "whiteboard"
-                ? "bg-indigo-600 text-white shadow"
-                : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/60"
+                ? "bg-violet-600 text-white shadow"
+                : "text-gray-600 hover:text-gray-800 hover:bg-gray-100"
             }`}
           >
             <Pencil className="w-3.5 h-3.5" />
@@ -132,8 +132,8 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => onChangeLayout("split")}
             className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all ${
               layoutMode === "split"
-                ? "bg-indigo-600 text-white shadow"
-                : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/60"
+                ? "bg-violet-600 text-white shadow"
+                : "text-gray-600 hover:text-gray-800 hover:bg-gray-100"}
             }`}
           >
             <Columns2 className="w-3.5 h-3.5" />
@@ -143,8 +143,8 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => onChangeLayout("code")}
             className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all ${
               layoutMode === "code"
-                ? "bg-indigo-600 text-white shadow"
-                : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/60"
+                ? "bg-violet-600 text-white shadow"
+                : "text-gray-600 hover:text-gray-800 hover:bg-gray-100"
             }`}
           >
             <SquareCode className="w-3.5 h-3.5" />
@@ -153,7 +153,7 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Stopwatch / Interview Timer */}
-        <div className="flex items-center gap-2 bg-slate-800/80 border border-slate-700/60 rounded-lg px-2.5 py-1 text-xs font-mono">
+        <div className="flex items-center gap-2 bg-gray-100 border border-gray-200 rounded-lg px-2.5 py-1 text-xs font-mono">
           <Clock className="w-3.5 h-3.5 text-indigo-400" />
           <span className="text-slate-200 min-w-10.5">
             {formatTimer(timerSeconds)}
@@ -185,7 +185,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Gemini AI Assistant Button */}
         <button
           onClick={onOpenAiModal}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-linear-to-r from-violet-600 via-indigo-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white text-xs font-medium shadow-md hover:shadow-indigo-500/25 transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-linear-to-r from-violet-600 via-fuchsia-500 to-teal-500 hover:from-violet-500 hover:to-teal-500 text-white text-xs font-medium shadow-md hover:shadow-violet-200/25 transition-all transform hover:-translate-y-0.5 active:translate-y-0"
         >
           <Sparkles className="w-3.5 h-3.5 animate-pulse text-amber-200" />
           <span>AI Architect & Copilot</span>
@@ -195,18 +195,18 @@ export const Header: React.FC<HeaderProps> = ({
         <button
           onClick={onExportSnapshot}
           title="Export Workspace Snapshot"
-          className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700/60 transition-colors"
+          className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-200 transition-colors"
         >
           <Download className="w-4 h-4" />
         </button>
 
-        <div className="h-4 w-px bg-slate-800" />
+        <div className="h-4 w-px bg-gray-200" />
 
         {/* User Presence & Role Selector */}
         <div className="relative">
           <button
             onClick={() => setShowUserDropdown(!showUserDropdown)}
-            className="flex items-center gap-2 pl-2 pr-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700/80 border border-slate-700/60 transition-colors"
+            className="flex items-center gap-2 pl-2 pr-2.5 py-1 rounded-lg bg-gray-100 hover:bg-gray-50 border border-gray-200 transition-colors"
           >
             <div className="flex -space-x-2 overflow-hidden">
               {users.slice(0, 4).map((u) => (
@@ -227,7 +227,7 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* User Profile & Role Dropdown */}
           {showUserDropdown && (
-            <div className="absolute right-0 mt-2 w-64 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl p-3 z-50 text-xs">
+            <div className="absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-xl shadow-2xl p-3 z-50 text-xs">
               <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-800">
                 <span className="font-semibold text-slate-200">
                   Active Collaborators
@@ -275,7 +275,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <select
                   value={currentUser.role}
                   onChange={(e) => onUpdateUserRole(e.target.value as UserRole)}
-                  className="w-full bg-slate-950 border border-slate-700 rounded p-1 text-slate-200 focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-white border border-gray-200 rounded p-1 text-slate-900 focus:outline-none focus:border-violet-500"
                 >
                   <option value="interviewer">Interviewer</option>
                   <option value="candidate">Candidate</option>
