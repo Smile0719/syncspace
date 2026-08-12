@@ -343,7 +343,7 @@ export default function App() {
   const activeFile = files.find((f) => f.id === activeFileId) || files[0];
 
   return (
-    <div className="w-screen h-screen bg-slate-950 flex flex-col overflow-hidden text-slate-100 font-sans">
+    <div className="w-screen h-screen bg-white text-slate-900 flex flex-col overflow-hidden min-h-screen font-sans">
       {/* Top Header Navigation */}
       <Header
         roomId={roomId}
