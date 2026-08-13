@@ -12,6 +12,8 @@ import {
   UserRole,
 } from "./types";
 import { getSocket } from "./lib/socket";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 const DEFAULT_CODE_FILE: CodeFile = {
   id: "main-ts",
@@ -22,6 +24,14 @@ const DEFAULT_CODE_FILE: CodeFile = {
 };
 
 export default function App() {
+  // simple pathname-based pages for login/register when user visits /login or /register
+  const pathname = window.location.pathname;
+  if (pathname === "/login") {
+    return <Login />;
+  }
+  if (pathname === "/register") {
+    return <Register />;
+  }
   // Derive Room ID from URL or default
   const [roomId, setRoomId] = useState<string>(() => {
     const params = new URLSearchParams(window.location.search);
