@@ -90,6 +90,18 @@ export const Header: React.FC<HeaderProps> = ({
           <span className="text-slate-400">Room:</span>
           <span className="text-indigo-300 font-medium">{roomId}</span>
           <button
+            onClick={() => {
+              // create a new room and navigate there
+              const newRoom = `room-${Math.random().toString(36).substring(2, 9)}`;
+              window.history.replaceState({}, '', `/?room=${newRoom}`);
+              window.location.reload();
+            }}
+            title="Create New Room"
+            className="text-sm text-gray-700 ml-2 underline"
+          >
+            New
+          </button>
+          <button
             onClick={handleCopyLink}
             title="Copy Share Link"
             className="text-gray-600 hover:text-white transition-colors ml-1 p-0.5 rounded hover:bg-gray-200"

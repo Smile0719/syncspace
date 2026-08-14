@@ -15,7 +15,10 @@ export default function Login({ onSuccess, onCancel }: Props) {
     console.log("Login attempt", { email, password });
     if (onSuccess) onSuccess();
     else {
-      window.history.replaceState({}, "", "/");
+      // If a room is provided in the query string, join it; otherwise create a new room id and join
+      const params = new URLSearchParams(window.location.search);
+      const room = params.get("room") || `room-${Math.random().toString(36).substring(2, 9)}`;
+      window.history.replaceState({}, "", `/?room=${room}`);
       window.location.reload();
     }
   };
@@ -67,17 +70,32 @@ export default function Login({ onSuccess, onCancel }: Props) {
             </button>
           </div>
 
-          <div className="text-sm text-gray-600">
-            No account?{' '}
-            <a
-              className="text-violet-600 hover:underline cursor-pointer"
-              onClick={() => {
-                window.history.pushState({}, '', '/register');
-                window.location.reload();
-              }}
-            >
-              Create one
-            </a>
+          <div className="text-sm text-gray-600 flex items-center justify-between">
+            <div>
+              No account?{' '}
+              <a
+                className="text-violet-600 hover:underline cursor-pointer"
+                onClick={() => {
+                  window.history.pushState({}, '', '/register');
+                  window.location.reload();
+                }}
+              >
+                Create one
+              </a>
+            </div>
+            <div>
+              <button
+                type="button"
+                onClick={() => {
+                  const room = `room-${Math.random().toString(36).substring(2, 9)}`;
+                  window.history.replaceState({}, '', `/?room=${room}`);
+                  window.location.reload();
+                }}
+                className="text-sm text-gray-700 underline"
+              >
+                Create new room
+              </button>
+            </div>
           </div>
         </form>
       </div>
