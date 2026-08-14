@@ -16,7 +16,9 @@ export default function Register({ onSuccess, onCancel }: Props) {
     console.log("Register attempt", { name, email, password });
     if (onSuccess) onSuccess();
     else {
-      window.history.replaceState({}, "", "/");
+      const params = new URLSearchParams(window.location.search);
+      const room = params.get("room") || `room-${Math.random().toString(36).substring(2, 9)}`;
+      window.history.replaceState({}, "", `/?room=${room}`);
       window.location.reload();
     }
   };
@@ -79,17 +81,32 @@ export default function Register({ onSuccess, onCancel }: Props) {
             </button>
           </div>
 
-          <div className="text-sm text-gray-600">
-            Already have an account?{' '}
-            <a
-              className="text-violet-600 hover:underline cursor-pointer"
-              onClick={() => {
-                window.history.pushState({}, '', '/login');
-                window.location.reload();
-              }}
-            >
-              Sign in
-            </a>
+          <div className="text-sm text-gray-600 flex items-center justify-between">
+            <div>
+              Already have an account?{' '}
+              <a
+                className="text-violet-600 hover:underline cursor-pointer"
+                onClick={() => {
+                  window.history.pushState({}, '', '/login');
+                  window.location.reload();
+                }}
+              >
+                Sign in
+              </a>
+            </div>
+            <div>
+              <button
+                type="button"
+                onClick={() => {
+                  const room = `room-${Math.random().toString(36).substring(2, 9)}`;
+                  window.history.replaceState({}, '', `/?room=${room}`);
+                  window.location.reload();
+                }}
+                className="text-sm text-gray-700 underline"
+              >
+                Create new room
+              </button>
+            </div>
           </div>
         </form>
       </div>
