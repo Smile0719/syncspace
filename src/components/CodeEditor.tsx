@@ -66,7 +66,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     editorRef.current = editor;
 
     // Track cursor movement
-    editor.onDidChangeCursorPosition((e) => {
+    editor.onDidChangeCursorPosition((e: any) => {
       onCursorMove(
         activeFile?.id || 'main',
         e.position.lineNumber,
