@@ -1,5 +1,5 @@
 declare module 'lucide-react' {
-  // Minimal ambient declarations for lucide-react icons used in the project
+  // Broad ambient declarations for lucide-react icons used across the project
   import * as React from 'react';
   export const Play: React.FC<any>;
   export const Terminal: React.FC<any>;
@@ -13,11 +13,47 @@ declare module 'lucide-react' {
   export const Clock: React.FC<any>;
   export const Layers: React.FC<any>;
   export const ChevronDown: React.FC<any>;
+  export const ChevronUp: React.FC<any>;
+  export const MessageSquare: React.FC<any>;
+  export const Send: React.FC<any>;
+  export const User: React.FC<any>;
   export const Users: React.FC<any>;
   export const Copy: React.FC<any>;
   export const Check: React.FC<any>;
   export const PlayCircle: React.FC<any>;
-  // Fallback for other named exports
+  export const X: React.FC<any>;
+  export const Cpu: React.FC<any>;
+  export const Pencil: React.FC<any>;
+  export const Code2: React.FC<any>;
+  export const Loader2: React.FC<any>;
+  export const Zap: React.FC<any>;
+  export const Layout: React.FC<any>;
+  export const MessageSquareIcon: React.FC<any>;
+  export const Pause: React.FC<any>;
+  export const Download: React.FC<any>;
+  export const Columns2: React.FC<any>;
+  export const SquareCode: React.FC<any>;
+  export const CircleDot: React.FC<any>;
+  export const Radio: React.FC<any>;
+  export const MousePointer: React.FC<any>;
+  export const Eraser: React.FC<any>;
+  export const Square: React.FC<any>;
+  export const Circle: React.FC<any>;
+  export const ArrowUpRight: React.FC<any>;
+  export const Minus: React.FC<any>;
+  export const Type: React.FC<any>;
+  export const StickyNote: React.FC<any>;
+  export const ZoomIn: React.FC<any>;
+  export const ZoomOut: React.FC<any>;
+  export const Grid: React.FC<any>;
+  export const Maximize2: React.FC<any>;
+  export const Palette: React.FC<any>;
+  export const RotateCw: React.FC<any>;
+  export const ChevronLeft: React.FC<any>;
+  export const ChevronRight: React.FC<any>;
+  export const XOctagon: React.FC<any>;
+  export const AlertCircle: React.FC<any>;
+  // Generic fallback for any other icon used by name
   const Icon: React.FC<any>;
   export default Icon;
 }
