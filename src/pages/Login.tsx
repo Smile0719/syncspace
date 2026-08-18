@@ -70,12 +70,14 @@ export default function Login({ onSuccess, onCancel }: Props) {
             </button>
           </div>
 
-          <div className="text-sm text-gray-600 flex items-center justify-between">
+          <div className="text-sm text-gray-600 flex items-center justify-between gap-3">
             <div>
               No account?{' '}
               <a
+                href="/register"
                 className="text-violet-600 hover:underline cursor-pointer"
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   window.history.pushState({}, '', '/register');
                   window.location.reload();
                 }}
@@ -83,18 +85,18 @@ export default function Login({ onSuccess, onCancel }: Props) {
                 Create one
               </a>
             </div>
-            <div>
-              <button
-                type="button"
-                onClick={() => {
-                  const room = `room-${Math.random().toString(36).substring(2, 9)}`;
-                  window.history.replaceState({}, '', `/?room=${room}`);
+            <div className="text-right">
+              <a
+                href="/"
+                className="text-sm text-gray-700 underline"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.history.pushState({}, '', '/');
                   window.location.reload();
                 }}
-                className="text-sm text-gray-700 underline"
               >
-                Create new room
-              </button>
+                Back to home
+              </a>
             </div>
           </div>
         </form>
